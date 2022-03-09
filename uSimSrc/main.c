@@ -109,6 +109,8 @@ int main(void)
 	/* Prepare the I/O ports. */
 	SetupSystemPorts();
 
+  InitCpuToMonitor();
+
 	/* Issue the BOOT command. */
 	MonitorCommand("BOOT");
 

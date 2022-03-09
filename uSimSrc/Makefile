@@ -53,7 +53,7 @@ OBJS=	asm.o		\
 	string.o	\
 	system.o
 
-CFLAGS=	-g -U COLOR -DZ80 -DBIG_ENDIAN -DTERMIOS -DADM31 -DBSD
+CFLAGS=	-g -U COLOR -DZ80 -DLITTLE_ENDIAN -DTERMIOS -DADM31 -DBSD
 CRLIB=	-ltermcap
 
 uSim:	$(HDRS) $(OBJS)
