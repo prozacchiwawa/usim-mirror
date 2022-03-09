@@ -54,6 +54,10 @@ error:
 
 }
 
+static inline char *get_ptr(StackPtr stackPtr) {
+  return stackPtr->insert + (stackPtr->elementSize * stackPtr->count);
+}
+
 /* RingCount() counts the Elements in a Stack. */
 unsigned StackCount(StackPtr stackPtr)
 {
@@ -75,10 +79,7 @@ int StackPush(StackPtr stackPtr, void *element)
 		goto error;
 
 	/* Insert the Element. */
-	memcpy(stackPtr->insert, element, stackPtr->elementSize);
-
-	/* Advance the insertion pointer. */
-	stackPtr->insert = &(stackPtr->insert)[stackPtr->elementSize];
+	memcpy(get_ptr(stackPtr), element, stackPtr->elementSize);
 
 	/* Increase the Stack Count. */
 	stackPtr->count++;
@@ -100,14 +101,11 @@ int StackPop(StackPtr stackPtr, void *element)
 	if (stackPtr->count == 0)
 		goto error;
 
+	/* Remove the Element. */
+	memcpy(element, get_ptr(stackPtr), stackPtr->elementSize);
+
 	/* Reduce the Stack Count. */
 	stackPtr->count--;
-
-	/* Retreat the insertion pointer. */
-	stackPtr->insert = &(stackPtr->insert)[-stackPtr->elementSize];
-
-	/* Remove the Element. */
-	memcpy(element, stackPtr->insert, stackPtr->elementSize);
 
 	/* All done, no error, return non-zero. */
 	return 1;
