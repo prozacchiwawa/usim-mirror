@@ -101,11 +101,11 @@ int StackPop(StackPtr stackPtr, void *element)
 	if (stackPtr->count == 0)
 		goto error;
 
-	/* Remove the Element. */
-	memcpy(element, get_ptr(stackPtr), stackPtr->elementSize);
-
 	/* Reduce the Stack Count. */
 	stackPtr->count--;
+
+	/* Remove the Element. */
+	memcpy(element, get_ptr(stackPtr), stackPtr->elementSize);
 
 	/* All done, no error, return non-zero. */
 	return 1;
